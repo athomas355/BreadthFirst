@@ -84,10 +84,19 @@ struct Queue {
 class BreadthFirst {
 	public:
 		
-		void breadthfirst(char* root, Queue *queue);
+		void breadthfirst(char* root, Queue *queue, bool pFlag);
 		bool isDir(string dir);
 		void printQueue(Queue *queue);
-		char* permissions(char *file); 
+		void help();
+		void symLInks();
+		void fileType(char *file);
+		char* permissions(char *file);
+		void inode(char *file);
+		void userID(char *file);
+		void groupID(char *file);
+		void fileSize(char *file);
+		void timeMod(char *file);
+		void multiple(); 
 };
 
 #endif

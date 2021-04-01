@@ -10,9 +10,9 @@ using namespace std;
 //Making the Queu global
 //Queue *queue = new Queue();
 
-bool flag = true;
+bool rootDirFlag = true;
 
-void BreadthFirst::breadthfirst(char* dir, Queue *queue) { 
+void BreadthFirst::breadthfirst(char* dir, Queue *queue, bool pFlag) { 
 	//Queue queue;
 	Queue *originalQueue = queue;
 
@@ -24,9 +24,9 @@ void BreadthFirst::breadthfirst(char* dir, Queue *queue) {
 	string output = "";
 	string slash("/");
 
-	if (flag) {
+	if (rootDirFlag) {
 		printf("%s\n", dir);
-		flag = false;
+		rootDirFlag = false;
 	}
 	char cw[2048];
 	while(!queue->isEmpty()) {
@@ -61,7 +61,12 @@ void BreadthFirst::breadthfirst(char* dir, Queue *queue) {
 						//strcpy(cw, x.c_str());
 						
 						//printf("***************%s\n", x);
-						cout << permissions(cw) << " " << cw << endl;
+						if(pFlag) {					//we need other conditionals to print out the different dash methods 
+							cout << permissions(cw) << " " << cw << endl;
+						}
+						else {
+							cout << cw << endl;
+						}
 						struct stat st;
 						if (stat(cw, &st) == 0) {
 							mode_t mode = st.st_mode;
@@ -100,7 +105,7 @@ void BreadthFirst::breadthfirst(char* dir, Queue *queue) {
 				//printf("We are going to this directory %s\n", cDir);
 				//cout << "We are going to this directory " << queue->getCurrentHeadData() << endl;
 				//char* nextDir = cDir.c_str();
-				breadthfirst((char*)queue->getCurrentHeadData(), queue);	
+				breadthfirst((char*)queue->getCurrentHeadData(), queue, pFlag);	
 			}
 		}
 		//printf("the currentDir is pointing at %p\n", currentDir);

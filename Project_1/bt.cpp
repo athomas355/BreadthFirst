@@ -133,54 +133,24 @@ void multiple() {
 int main(int argc, char* argv[]) {
 	
 
-
-	//https://stackoverflow.com/questions/915106/c-syntax-for-accessing-member-struct-from-pointer-to-class
-//	Foo foo;
-  //  	foo.mybar.otherdata = 5;
-
-
-
-
 	Queue queue;
 	BreadthFirst bfs;
-	//BreadthFirst::Queue *q = bfs.myQueue.Queue(); 
-	bfs.breadthfirst(argv[1], &queue);
+	bool pFlag = false;
 
-/*	if(argv[1] == string("-p")) {
-		cout << "Permissions = " << permissions(argv[2]);		}
+	int option;
+	while((option = getopt(argc, argv, "p")) != -1) {
+		switch(option) {
+			case 'p':
+				pFlag = true;
+				break;
+			case '?':
+				printf("unknown option: %c\n", optarg);
+				exit(1);
+		}
 	}
-	if(argv[1] == string("-t")) {
-		fileType(argv[2]);
+	for(; optind < argc; optind++) {
+		bfs.breadthfirst(argv[optind], &queue, pFlag);
 	}
-	if(argv[1] == string("-h")) {
-
-        }
-	if(argv[1] == string("-L")) {
-			
-        }
-	if(argv[1] == string("-i")) {
-		inode(argv[2]);
-        }
-	if(argv[1] == string("-u")) {
-		userID(argv[2]);
-        }
-	if(argv[1] == string("-g")) {
-		groupID(argv[2]);
-        }
-	if(argv[1] == string("-s")) {
-		fileSize(argv[2]);
-        }
-	if(argv[1] == string("-d")) {
-		timeMod(argv[2]);
-        }
-	if(argv[1] == string("-l")) {
-
-        }
-
-*/	
-
-
-		
 
 	return 0;
 }
