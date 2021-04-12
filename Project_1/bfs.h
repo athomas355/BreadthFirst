@@ -61,7 +61,7 @@ struct Queue {
 	}
 
 	void printQueue(const char* annot) {
-		return;
+		//return;
 		if(head == NULL) {				//this is so it will not seg fault
 			return;
 		}
@@ -84,18 +84,18 @@ struct Queue {
 class BreadthFirst {
 	public:
 		
-		void breadthfirst(char* root, Queue *queue, bool pFlag);
+		void breadthfirst(char* root, Queue *queue, bool pFlag, bool Lflag, bool dFlag, bool gFlag, bool iFlag, bool sFlag, bool tFlag, bool uFlag, bool lFlag);
 		bool isDir(string dir);
 		void printQueue(Queue *queue);
 		void help();
 		void symLInks();
-		void fileType(char *file);
-		char* permissions(char *file);
-		void inode(char *file);
-		void userID(char *file);
-		void groupID(char *file);
-		void fileSize(char *file);
-		void timeMod(char *file);
+		char* fileType(struct stat st);
+		char* permissions(char* buffer, struct stat st);
+		//void inode(char *file);
+		char* userID(struct stat st);
+		char* groupID(struct stat st);
+		char* fileSize(char* buffer, struct stat st);
+		char* timeMod(char* buffer, struct stat st);
 		void multiple(); 
 };
 
