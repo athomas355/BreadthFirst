@@ -110,12 +110,13 @@ void BreadthFirst::breadthfirst(char* dir, Queue *queue, bool pFlag, bool Lflag,
 								isDir = S_ISDIR(mode);
 							}
 							else{
-								isDir = ((lstat(cw, &lst) >= 0) && S_ISDIR(lst.st_mode));
+								//I commented line below out bc I think it isn't allowing -L to work 
+								//isDir = ((lstat(cw, &lst) >= 0) && S_ISDIR(lst.st_mode));
 								if(stat(cw, &st) != 0) {
+									printf("cw = %s cwCopy = %s\n", cw, cwCopy);
 									perror("Error After stat call: ");
 								exit(-1);
 								}
-								printf("debugger breakpoint");
 							}
 						}
 						char buffer[1024];	//this is here so that temporary arguments can be stored safely until the function exuts
@@ -125,7 +126,7 @@ void BreadthFirst::breadthfirst(char* dir, Queue *queue, bool pFlag, bool Lflag,
 						}
 						if(iFlag) {
 							char* eosp = oa + strlen(oa);	//eosp is the end of string pointer
-							sprintf(eosp, "%d", st.st_nlink);
+							sprintf(eosp, "%d\t", st.st_nlink);
 						}
 						if(uFlag) {
 							strcat(oa, userID(st));
@@ -148,13 +149,7 @@ void BreadthFirst::breadthfirst(char* dir, Queue *queue, bool pFlag, bool Lflag,
 						oa[0] = '\0';	
 						
 						
-					/*	if(Lflag) {
-
-						}*/
 						
-							if(isDir && isLink) {
-								printf("problem with Lstat********");
-							}	
 							/*		This is gray encoding
  *							https://en.wikipedia.org/wiki/Gray_code
  *							https://en.wikipedia.org/wiki/Karnaugh_map
@@ -187,14 +182,9 @@ void BreadthFirst::breadthfirst(char* dir, Queue *queue, bool pFlag, bool Lflag,
 						
  * 							*/
 						
-							printf("isDir = %u, and isLink = %u, Lflag = %u\t", isDir, isLink, Lflag);
 							if((isDir && !isLink) || (isDir && isLink && Lflag)) {
 								queue->enqueue(cwCopy);
-								cout << endl;
 							}
-							else {
-								printf("Not enqueuing\n");
-							}	
 						//loop to remove last entry in char array
 						char *slashPtr;
 						slashPtr = strrchr(cw, '/');
